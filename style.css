@@ -2,90 +2,14 @@ html, body {
     height: 100%;
 }
 
-.container {
-  height: 100%;
-}
-
-body {
-  background: #003f2d!important;
-}
-
-div p {
-  color: #f8e19f;
-}
-
-.footer a {
-  color: #f8e19f!important;
-  text-decoration: underline!important;
-}
-
-.footer a:hover {
-  color: #e4b633!important;
-}
-
-td a { /* для кнопки поделиться*/
-  font-size: 14px!important;
-}
-
-.btn-link {
-  color: #f8e19f!important;
-  text-decoration: underline!important;
-}
-
-.btn-outline-primary {
-  color: #f8e19f!important;
-  border-color: #f8e19f!important;
-}
-
-.btn-outline-primary:hover {
-  background-color: rgba(248, 225, 159,.2)!important;
-}
-
-.btn-outline-primary:focus {
-  box-shadow: 0 0 0 0.2rem rgba(248, 225, 159,.5)!important;
-}
-
-.under-progressbar {
-  margin-top: 10px;
-}
-
-.emptiness {
-  background: white!important;
-}
-
-.star-score {
-  margin-bottom:10px;
-}
-
-.outer-footer {
+.footer {
   position: absolute;
   bottom: 0;
-  left: 50%;
-  height: 30px;
-}
-
-.inner-footer {
-  position: relative;
-  left: -50%;
-}
-
-#button-container {
+  left: 0;
+  width: 100%;
   text-align: center;
 }
 
-.progress {
-  width:70%;
-}
-
-.own-centerer {
+.align-text-center {
   text-align: center;
-}
-
-.your-answer {
-  width: 130px;
-}
-
-.own-centerer span {
-  color: orange;
-  size: 10;
 }
