@@ -40,7 +40,7 @@ v = new Vue({
     shareButtonHtml: null
   },
   created() {
-    let dataURL = 'http://127.0.0.1:8000/goods.json';
+    let dataURL = '/goods.json';
     let goodsNum = [5];
     this.globalConfig.timePerGood.push(30);
     for (let i = 1; i <= 30; i++) {

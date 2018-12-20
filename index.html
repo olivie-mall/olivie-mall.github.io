@@ -11,6 +11,7 @@
       gtag('config', 'UA-131026152-1');
     </script>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>ТЦ "Оливье"</title>
     <link rel='stylesheet' href="style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -21,138 +22,189 @@
     <script type="text/javascript" src="https://vk.com/js/api/share.js?95" charset="windows-1251"></script>
   </head>
   <body>
-    <div class="container" id="app">
-      <div class="row h-100">
-        <component
-          :is="currentView"
-          @start-game="startGame"
-          @go-checkout="goCheckout"
-          @finish-level="finishLevel"
-          @next-level="nextLevel"
-          :start-game-label="startGameLabel"
-          :level='level'
-          :score='score'
-          :all-goods='allGoods'
-          :time-left='timeLeft'
-          :total-time='totalTime'
-          :score-diff='scoreDiff'
-          :correct-answer='correctAnswer'
-          :game-over-message='gameOverMessage'
-          :share-button-html='shareButtonHtml'
-          ></component>
-      </div>
-      <div class="row outer-footer">
-        <div class="row inner-footer">
-          <p class="footer"><a href="https://mrevgenx.github.io/" target="_blank">mrEvgenX</a> 2018</p>
-        </div>
-      </div>
+    <div class="container h-100" id="app">
+      <component
+        :is="currentView"
+        @start-game="startGame"
+        @go-checkout="goCheckout"
+        @finish-level="finishLevel"
+        @next-level="nextLevel"
+        :start-game-label="startGameLabel"
+        :level='level'
+        :score='score'
+        :all-goods='allGoods'
+        :time-left='timeLeft'
+        :total-time='totalTime'
+        :score-diff='scoreDiff'
+        :correct-answer='correctAnswer'
+        :game-over-message='gameOverMessage'
+        :share-button-html='shareButtonHtml'
+        ></component>
+      <footer class="footer">
+        <p><a href="https://mrevgenx.github.io/" target="_blank">mrEvgenX</a> 2018</p>
+      </footer>
     </div>
 
     <template id="start">
-          <div class="col-sm-12 my-auto">
-            <div class="own-centerer" style="margin-bottom: 15px;">
-              <img src="img/main.jpg" class="rounded" width="450" alt="Новый год в ТЦ">
+      <div class="row h-100 align-items-center">
+        <div class="col">
+          <div class="row">
+            <div class="col-4">
+              <img src="img/main.jpg" class="rounded" alt="Новый год в ТЦ" style="width: 100%">
             </div>
-            <div class="mx-auto" style="width:250px;">
-              <button v-focus-start type="button" class="btn btn-outline-primary btn btn-block" :disabled="startGameLabel != 'Начать игру'" @click="startGame()">{{startGameLabel}}</button>
+          </div>
+          <div class="row">
+            <div class="col align-text-center">
+              <button v-focus-start type="button" class="btn btn-outline-primary" :disabled="startGameLabel != 'Начать игру'" @click="startGame()">{{startGameLabel}}</button>
             </div>
-            <div class="own-centerer" style="margin-top: 10px;">
+          </div>
+          <div class="row">
+            <div class="col align-text-center">
               <p>Или жми Enter</p>
             </div>
           </div>
-    </template>
-
-    <template id="game">
-        <div class="col-sm-12 my-auto">
-          <div style="text-align: center;">
-            <p>{{level > 0? 'Уровень ' + level: 'Обучение'}}</p>
-          </div>
-          <div class="progress mx-auto">
-            <div class="progress-bar emptiness" role="progressbar" :style="{width: 100-timeLeftPerc + '%'}"></div>
-            <div class="progress-bar bg-danger progress-bar-striped" role="progressbar" :style="{width: timeLeftPerc + '%'}"></div>
-            <div class="progress-bar emptiness" role="progressbar" :style="{width: 100-timeLeftPerc + '%'}"></div>
-          </div>
-          <div class="under-progressbar own-centerer">
-            <p>{{allGoods[level][currGoodIndex].name}}</p>
-          </div>
-          <div v-if="level > 0" class="own-centerer">
-            <p>{{allGoods[level][currGoodIndex].price}} руб.</p>
-          </div>
-          <div class="own-centerer">
-            <button v-focus v-if="anyGoodsLeft" id="nextGood" type="button" class="btn btn-outline-primary" @click="nextGood()">Ага, идем дальше</button>
-            <button v-focus v-else id="goCheckout" type="button" class="btn btn-outline-primary" @click="goCheckout()">{{level > 0? 'Пора на кассу': 'Ага, идем дальше'}}</button>
-          </div>
-          <div class="own-centerer">
-            <button v-if="level == 0" type="button" class="btn btn-link" @click="goCheckout()">Пропустить обучение</button>
-          </div>
+        </div>
       </div>
     </template>
 
+    <template id="game">
+      <div class="row h-100 align-items-center">
+        <div class="col">
+          <div class="col align-text-center">
+            <p>{{level > 0? 'Уровень ' + level: 'Обучение'}}</p>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col col-sm-9 col-md-6">
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" :style="{width: 100-timeLeftPerc + '%'}"></div>
+                <div class="progress-bar bg-danger progress-bar-striped" role="progressbar" :style="{width: timeLeftPerc + '%'}"></div>
+                <div class="progress-bar" role="progressbar" :style="{width: 100-timeLeftPerc + '%'}"></div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col align-text-center">
+              <p>{{allGoods[level][currGoodIndex].name}}</p>
+            </div>
+          </div>
+          <div v-if="level > 0" class="row">
+            <div class="col align-text-center">
+              <p>{{allGoods[level][currGoodIndex].price}} руб.</p>
+            </div>
+          </div>
+        <div class="row">
+          <div class="col align-text-center">
+            <button v-focus v-if="anyGoodsLeft" id="nextGood" type="button" class="btn btn-outline-primary" @click="nextGood()">Ага, идем дальше</button>
+            <button v-focus v-else id="goCheckout" type="button" class="btn btn-outline-primary" @click="goCheckout()">{{level > 0? 'Пора на кассу': 'Ага, идем дальше'}}</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col align-text-center">
+            <button v-if="level == 0" type="button" class="btn btn-link" @click="goCheckout()">Пропустить обучение</button>
+          </div>
+        </div>
+    </template>
+
     <template id="checkout">
-        <div class="col-sm-12 my-auto">
-          <div style="text-align: center;">
-            <p>Уровень {{level}}</p>
+      <div class="row h-100 align-items-center">
+        <div class="col">
+          <div class="row">
+            <div class="col align-text-center">
+              <p>Уровень {{level}}</p>
+            </div>
           </div>
-          <div class="progress mx-auto">
-            <div class="progress-bar emptiness" role="progressbar" :style="{width: 100-timeLeftPerc + '%'}"></div>
-            <div class="progress-bar bg-danger progress-bar-striped" role="progressbar" :style="{width: timeLeftPerc + '%'}"></div>
-            <div class="progress-bar emptiness" role="progressbar" :style="{width: 100-timeLeftPerc + '%'}"></div>
+          <div class="row justify-content-center">
+            <div class="col col-sm-9 col-md-6">
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" :style="{width: 100-timeLeftPerc + '%'}"></div>
+                <div class="progress-bar bg-danger progress-bar-striped" role="progressbar" :style="{width: timeLeftPerc + '%'}"></div>
+                <div class="progress-bar" role="progressbar" :style="{width: 100-timeLeftPerc + '%'}"></div>
+              </div>
+            </div>
           </div>
-          <div class="under-progressbar own-centerer">
-            <p>И на сколько же я там набрал?</p>
+          <div class="row">
+            <div class="col align-text-center">
+              <p>И на сколько же я там набрал?</p>
+            </div>
           </div>
-          <div class="your-answer mx-auto">
-            <div class="form-group">
+          <div class="row">
+            <div class="col">
               <input v-focus type="number" class="form-control" name="total_sum" id="answer" v-model="answer" value="" @keydown.enter="finishLevel()" autocomplete="off">
             </div>
           </div>
-          <div class="own-centerer">
-            <button type="button" class="btn btn-outline-primary" @click="finishLevel()">Пусть так</button>
+          <div class="row align-text-center">
+            <div class="col">
+              <button type="button" class="btn btn-outline-primary" @click="finishLevel()">Пусть так</button>
+            </div>
           </div>
+        </div>
       </div>
     </template>
 
     <template id="levelscore">
-        <div class="col-sm-12 my-auto">
-          <div v-if="level > 0" style="text-align: center;">
-            <p>Уровень {{level}}</p>
+      <div class="row h-100 align-items-center">
+        <div class="col">
+          <div v-if="level > 0" class="row">
+            <div class="col align-text-center">
+              <p>Уровень {{level}}</p>
+            </div>
           </div>
-          <div class="progress mx-auto">
-            <div class="progress-bar emptiness" role="progressbar" style="width: 100%; background: white"></div>
-            <div class="progress-bar emptiness" role="progressbar" style="width: 0%"></div>
-            <div class="progress-bar emptiness" role="progressbar" style="width: 100%; background: white"></div>
+          <div class="row justify-content-center">
+            <div class="col col-sm-9 col-md-6">
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: 100%; background: white"></div>
+                <div class="progress-bar" role="progressbar" style="width: 0%"></div>
+                <div class="progress-bar" role="progressbar" style="width: 100%; background: white"></div>
+              </div>
+            </div>
           </div>
-          <div class="under-progressbar own-centerer">
-            <p v-if="level > 0">Уровень пройден! Точная сумма: {{correctAnswer}}</p>
-            <p v-else>Как будешь готов, поехали!</p>
+          <div class="row">
+            <div class="col align-text-center">
+              <p v-if="level > 0">Уровень пройден! Точная сумма: {{correctAnswer}}</p>
+              <p v-else>Как будешь готов, поехали!</p>
+            </div>
           </div>
-          <div v-if="level > 0" class="star-score own-centerer">
-            <span class="fa fa-4x" :class="{'fa-star': scoreDiff >= 1, 'fa-star-o': scoreDiff < 1}"></span>
-            <span class="fa fa-4x" :class="{'fa-star': scoreDiff >= 2, 'fa-star-o': scoreDiff < 2}"></span>
-            <span class="fa fa-4x" :class="{'fa-star': scoreDiff >= 3, 'fa-star-o': scoreDiff < 3}"></span>
+          <div v-if="level > 0" class="row">
+            <div class="col align-text-center">
+              <span class="fa fa-4x" :class="{'fa-star': scoreDiff >= 1, 'fa-star-o': scoreDiff < 1}"></span>
+              <span class="fa fa-4x" :class="{'fa-star': scoreDiff >= 2, 'fa-star-o': scoreDiff < 2}"></span>
+              <span class="fa fa-4x" :class="{'fa-star': scoreDiff >= 3, 'fa-star-o': scoreDiff < 3}"></span>
+            </div>
           </div>
-          <div id="next-level-cointainer" class="own-centerer">
-            <button v-focus type="button" class="btn btn-outline-primary" @click="nextLevel()">{{buttonLabel}}</button>
+          <div class="row">
+            <div id="next-level-cointainer" class="col align-text-center">
+              <button v-focus type="button" class="btn btn-outline-primary" @click="nextLevel()">{{buttonLabel}}</button>
+            </div>
           </div>
+        </div>
       </div>
     </template>
 
     <template id="gamefinal">
-        <div class="col-sm-12 my-auto">
-          <div class="own-centerer">
-            <p>{{gameOverMessage}}</p>
+
+      <div class="row h-100 align-items-center">
+        <div class="col">
+          <div class="row">
+            <div class="col align-text-center">
+              <p>{{gameOverMessage}}</p>
+            </div>
           </div>
-          <div class="own-centerer">
-            <p>Удалось набрать {{score}} очков, достигнув {{level}} уровня</p>
+          <div class="row">
+            <div class="col align-text-center">
+              <p>Удалось набрать {{score}} очков, достигнув {{level}} уровня</p>
+            </div>
           </div>
-          <div class="own-centerer">
-            <div style="display: inline-block;">
+          <div class="row">
+            <div class="col align-text-center">
               <span v-html="shareButtonHtml"></span>
             </div>
           </div>
-          <div class="own-centerer">
-            <p>Или может еще разок? Просто перезагрузи страницу</p>
+          <div class="row">
+            <div class="col align-text-center">
+              <p>Или может еще разок? Просто перезагрузи страницу</p>
+            </div>
           </div>
+        </div>
       </div>
     </template>
 
