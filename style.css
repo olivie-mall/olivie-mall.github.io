@@ -13,3 +13,51 @@ html, body {
 .align-text-center {
   text-align: center;
 }
+
+td a { /* для кнопки поделиться*/
+  font-size: 14px!important;
+}
+
+.emptiness {
+  background: white!important;
+}
+
+body {
+  background: #003f2d!important;
+}
+
+div p {
+  color: #f8e19f;
+}
+
+.footer a {
+  color: #f8e19f!important;
+  text-decoration: underline!important;
+}
+
+.footer a:hover {
+  color: #e4b633!important;
+}
+
+.btn-link {
+  color: #f8e19f!important;
+  text-decoration: underline!important;
+}
+
+.btn-outline-primary {
+  color: #f8e19f!important;
+  border-color: #f8e19f!important;
+}
+
+.btn-outline-primary:hover {
+  background-color: rgba(248, 225, 159,.2)!important;
+}
+
+.btn-outline-primary:focus {
+  box-shadow: 0 0 0 0.2rem rgba(248, 225, 159,.5)!important;
+}
+
+#scoreboard span {
+  color: orange;
+  size: 10;
+}

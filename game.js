@@ -224,7 +224,8 @@ v = new Vue({
         finishLevel: function() {
           if (this.answer != null && this.answer != undefined) {
             totalSum = this.allGoods[this.level].map((x)=> x.price).reduce((a,c)=>a+c);
-            error = Math.abs(totalSum - this.answer)/totalSum;
+            error_abs = Math.abs(totalSum - this.answer)/totalSum;
+            error_rel = error_abs/totalSum;
             if (error < 0.01) {
               this.$emit('finish-level', {scoreDiff: 3, correctAnswer: totalSum});
             } else if (error < 0.1) {

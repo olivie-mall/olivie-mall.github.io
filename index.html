@@ -13,7 +13,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>ТЦ "Оливье"</title>
-    <link rel='stylesheet' href="style.css">
+    <link rel='stylesheet' href="/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
@@ -48,7 +48,7 @@
     <template id="start">
       <div class="row h-100 align-items-center">
         <div class="col">
-          <div class="row">
+          <div class="row justify-content-center">
             <div class="col-4">
               <img src="img/main.jpg" class="rounded" alt="Новый год в ТЦ" style="width: 100%">
             </div>
@@ -76,9 +76,9 @@
           <div class="row justify-content-center">
             <div class="col col-sm-9 col-md-6">
               <div class="progress">
-                <div class="progress-bar" role="progressbar" :style="{width: 100-timeLeftPerc + '%'}"></div>
+                <div class="progress-bar emptiness" role="progressbar" :style="{width: 100-timeLeftPerc + '%'}"></div>
                 <div class="progress-bar bg-danger progress-bar-striped" role="progressbar" :style="{width: timeLeftPerc + '%'}"></div>
-                <div class="progress-bar" role="progressbar" :style="{width: 100-timeLeftPerc + '%'}"></div>
+                <div class="progress-bar emptiness" role="progressbar" :style="{width: 100-timeLeftPerc + '%'}"></div>
               </div>
             </div>
           </div>
@@ -116,9 +116,9 @@
           <div class="row justify-content-center">
             <div class="col col-sm-9 col-md-6">
               <div class="progress">
-                <div class="progress-bar" role="progressbar" :style="{width: 100-timeLeftPerc + '%'}"></div>
+                <div class="progress-bar emptiness" role="progressbar" :style="{width: 100-timeLeftPerc + '%'}"></div>
                 <div class="progress-bar bg-danger progress-bar-striped" role="progressbar" :style="{width: timeLeftPerc + '%'}"></div>
-                <div class="progress-bar" role="progressbar" :style="{width: 100-timeLeftPerc + '%'}"></div>
+                <div class="progress-bar emptiness" role="progressbar" :style="{width: 100-timeLeftPerc + '%'}"></div>
               </div>
             </div>
           </div>
@@ -127,8 +127,8 @@
               <p>И на сколько же я там набрал?</p>
             </div>
           </div>
-          <div class="row">
-            <div class="col">
+          <div class="row justify-content-center">
+            <div class="col-7 col-sm-4 col-md-3">
               <input v-focus type="number" class="form-control" name="total_sum" id="answer" v-model="answer" value="" @keydown.enter="finishLevel()" autocomplete="off">
             </div>
           </div>
@@ -152,9 +152,9 @@
           <div class="row justify-content-center">
             <div class="col col-sm-9 col-md-6">
               <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: 100%; background: white"></div>
+                <div class="progress-bar emptiness" role="progressbar" style="width: 100%; background: white"></div>
                 <div class="progress-bar" role="progressbar" style="width: 0%"></div>
-                <div class="progress-bar" role="progressbar" style="width: 100%; background: white"></div>
+                <div class="progress-bar emptiness" role="progressbar" style="width: 100%; background: white"></div>
               </div>
             </div>
           </div>
@@ -165,7 +165,7 @@
             </div>
           </div>
           <div v-if="level > 0" class="row">
-            <div class="col align-text-center">
+            <div class="col align-text-center" id="scoreboard">
               <span class="fa fa-4x" :class="{'fa-star': scoreDiff >= 1, 'fa-star-o': scoreDiff < 1}"></span>
               <span class="fa fa-4x" :class="{'fa-star': scoreDiff >= 2, 'fa-star-o': scoreDiff < 2}"></span>
               <span class="fa fa-4x" :class="{'fa-star': scoreDiff >= 3, 'fa-star-o': scoreDiff < 3}"></span>
@@ -196,7 +196,7 @@
           </div>
           <div class="row">
             <div class="col align-text-center">
-              <span v-html="shareButtonHtml"></span>
+              <span v-html="shareButtonHtml" class="d-inline-block mx-auto"></span>
             </div>
           </div>
           <div class="row">
@@ -209,6 +209,6 @@
     </template>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="game.js"></script>
+    <script src="/game.js"></script>
   </body>
 </html>
