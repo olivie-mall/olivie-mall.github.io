@@ -57,6 +57,15 @@ div p {
   box-shadow: 0 0 0 0.2rem rgba(248, 225, 159,.5)!important;
 }
 
+#answer {
+  margin-bottom: 10px;
+  border-color: #f8e19f!important;
+}
+
+#answer:focus {
+  box-shadow: 0 0 0 0.2rem rgba(248, 225, 159,.5)!important;
+}
+
 #scoreboard span {
   color: orange;
   size: 10;

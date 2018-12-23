@@ -224,13 +224,13 @@ v = new Vue({
         finishLevel: function() {
           if (this.answer != null && this.answer != undefined) {
             totalSum = this.allGoods[this.level].map((x)=> x.price).reduce((a,c)=>a+c);
-            error_abs = Math.abs(totalSum - this.answer)/totalSum;
-            error_rel = error_abs/totalSum;
-            if (error < 0.01) {
+            error_abs = Math.abs(totalSum - this.answer);
+            error_rel = error_abs/Math.min(totalSum, 1000);
+            if (error_rel < 0.01) {
               this.$emit('finish-level', {scoreDiff: 3, correctAnswer: totalSum});
-            } else if (error < 0.1) {
+            } else if (error_rel < 0.1) {
               this.$emit('finish-level', {scoreDiff: 2, correctAnswer: totalSum});
-            } else if (error < 0.33) {
+            } else if (error_rel < 0.33) {
               this.$emit('finish-level', {scoreDiff: 1, correctAnswer: totalSum});
             } else {
               this.$emit('finish-level', {scoreDiff: 0, correctAnswer: totalSum});
