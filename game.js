@@ -12,6 +12,7 @@ Vue.directive('focus', {
 v = new Vue({
   el: '#app',
   data: {
+    goodsNum: null,
     currentView: 'start',
     startGameLabel: 'Пожалуйста, подождите...',
     level: 0,
@@ -41,27 +42,54 @@ v = new Vue({
   },
   created() {
     let dataURL = '/goods.json';
-    let goodsNum = [5];
+    let goodsNum = [6, 3, 3, 4, 4, 4, 5];
+    for (let i = 7; i <= 30; i++) {
+      goodsNum.push(Math.round(0.32*i+3));
+    }
     this.globalConfig.timePerGood.push(30);
-    for (let i = 1; i <= 30; i++) {
-      goodsNum.push(Math.round(0.4*i+3));
+    for (let i = 1; i <= 5; i++) {
+      this.globalConfig.timePerGood.push(8 - 0.07*(i-1));
+    }
+    for (let i = 6; i <= 9; i++) {
+      this.globalConfig.timePerGood.push(7 - 0.07*(i-1));
+    }
+    for (let i = 10; i <= 19; i++) {
+      this.globalConfig.timePerGood.push(6 - 0.07*(i-1));
+    }
+    for (let i = 20; i <= 30; i++) {
       this.globalConfig.timePerGood.push(5 - 0.07*(i-1));
     }
+    this.goodsNum = goodsNum
     let self = this;
     $.getJSON(dataURL, function(data) {
       // Сформировать списки продуктов на все уровни вперед
-      self.allGoods = Array(6);
+      self.allGoods = Array(31);
       for (let i = 0; i < self.allGoods.length; i++) {
         self.allGoods[i] = []
       }
       self.allGoods[1].push(data.regular[0])
       self.allGoods[1].push(data.regular[1])
+      self.allGoods[3].push(data.regular[0])
+      for (let i = 0; i < data.regular.length; i++) {
+        good = data.regular[i]
+        let n = good.starting;
+        while(n <= 30) {
+          while(self.allGoods[n].length >= goodsNum[n] && n < 30) {
+            n += 1;
+          }
+          self.allGoods[n].push(good);
+          n += self.randomArrayItem(good.repeat);
+        }
+      }
+
       for (good of self.shuffle(data.fixed)) {
-        let n = self.randomArrayItem(good.level);
+        let n = self.randomArrayItem(good.starting);
         while(self.allGoods[n].length >= goodsNum[n] && n < 30) {
           n += 1;
         }
-        self.allGoods[n].push({name: good.name, price: good.price})
+        if (n < 30 || (n == 30 && self.allGoods[n].length <= goodsNum[n])) {
+          self.allGoods[n].push({name: good.name, price: good.price})
+        }
       }
       self.allGoods[1] = self.shuffle(self.allGoods[1])
       self.allGoods[0].push({name: 'Добро пожаловать в торговый центр "Оливье"', price: 1})
@@ -103,7 +131,7 @@ v = new Vue({
         clearInterval(this.timer)
       }
       if (e.scoreDiff == 0) {
-        this.finishGame('Точная сумма вышла ' + e.correctAnswer + ' руб. Грубовато, лучше попробовать еще раз');
+        this.finishGame('Точная сумма вышла ' + e.correctAnswer + ' руб. Хм, лучше попробовать еще раз');
       } else {
         this.scoreDiff = e.scoreDiff;
         if (this.level > 0) {
@@ -129,16 +157,14 @@ v = new Vue({
       }
       this.gameOverMessage = message;
       let header_part = 'Мне удалось достичь ' + this.level + ' уровня, набрав ' + this.score + ' очков'
-      let comment = 'Играю в игру, потому что хочу заранее знать, сколько отдам денег на кассе.'
       if (this.level == this.allGoods.length - 1) {
         header_part = 'Мне удалось пройти все уровни, набрав ' + this.score + ' очков';
-        comment = 'Я всегда в курсе сколько денег я потрачу, еще не дойдя до кассы.';
       }
       let img = Math.floor(Math.random()*9) + 1
       this.shareButtonHtml = VK.Share.button(
         {
           title: 'ТЦ "Оливье" - ' + header_part,
-          comment: comment,
+          comment: '',
           image: "https://olivie-mall.github.io/img/"+ img + ".jpg",
           noparse: false
         },
