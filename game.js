@@ -12,7 +12,6 @@ Vue.directive('focus', {
 v = new Vue({
   el: '#app',
   data: {
-    goodsNum: null,
     currentView: 'start',
     startGameLabel: 'Пожалуйста, подождите...',
     level: 0,
@@ -59,7 +58,6 @@ v = new Vue({
     for (let i = 20; i <= 30; i++) {
       this.globalConfig.timePerGood.push(5 - 0.07*(i-1));
     }
-    this.goodsNum = goodsNum
     let self = this;
     $.getJSON(dataURL, function(data) {
       // Сформировать списки продуктов на все уровни вперед
@@ -131,7 +129,7 @@ v = new Vue({
         clearInterval(this.timer)
       }
       if (e.scoreDiff == 0) {
-        this.finishGame('Точная сумма вышла ' + e.correctAnswer + ' руб. Хм, лучше попробовать еще раз');
+        this.finishGame('Точная сумма вышла ' + e.correctAnswer.toFixed(2) + ' руб. Хм, лучше попробовать еще раз');
       } else {
         this.scoreDiff = e.scoreDiff;
         if (this.level > 0) {
